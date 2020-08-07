@@ -15,8 +15,6 @@ def helpMessage() {
       --read-type           Type of PacBio or MinION reads passed in to Flye, either raw, corrected, or HiFi (PacBio-only)
                             Default: pacbio-raw
                             Options: pacbio-raw, pacbio-corr, pacbio-hifi, nano-raw, nano-corr, subassemblies
-      --genome-size         Estimated genome size, for example, 5m or 2.6g.
-                            Default: 5m
       --iterations          Number of polishing iterations
                             Default: 1
     
@@ -44,7 +42,6 @@ if (params.help || params.manifest == null || params.output_folder == null){
 
 // Default options listed here
 params.read_type = "pacbio-raw"
-params.genome_size = "5m"
 params.iterations = 1
 
 // Make sure the manifest file exists
@@ -86,7 +83,7 @@ Channel.from(
 process flye {
 
   // Docker container to use
-  container "quay.io/biocontainers/flye:2.7.1--py36he513fc3_0"
+  container "quay.io/biocontainers/flye:2.8--py37h8270d21_0"
   label "mem_medium"
   errorStrategy 'retry'
   maxRetries 3
@@ -115,7 +112,6 @@ echo ""
 
 flye \
     --${params.read_type} ${reads} \
-    --genome-size ${params.genome_size} \
     --out-dir ${name} \
     --threads ${task.cpus} \
     --iterations ${params.iterations} \
