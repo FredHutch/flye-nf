@@ -17,6 +17,8 @@ def helpMessage() {
                             Options: pacbio-raw, pacbio-corr, pacbio-hifi, nano-raw, nano-corr, subassemblies
       --iterations          Number of polishing iterations
                             Default: 1
+      --asm-coverage        Reduced coverage for initial disjointig assembly
+                            Default: not set
     
     For more details on Flye, see https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md
 
@@ -43,6 +45,7 @@ if (params.help || params.manifest == null || params.output_folder == null){
 // Default options listed here
 params.read_type = "pacbio-raw"
 params.iterations = 1
+params.asm_coverage = 'none'
 
 // Make sure the manifest file exists
 if ( file(params.manifest).isEmpty() ){
@@ -110,12 +113,26 @@ echo ""
 echo "STARTING FLYE"
 echo ""
 
-flye \
-    --${params.read_type} ${reads} \
-    --out-dir ${name} \
-    --threads ${task.cpus} \
-    --iterations ${params.iterations} \
-    --plasmids
+if [[ "${params.asm_coverage}" == "none" ]]; then
+
+    flye \
+        --${params.read_type} ${reads} \
+        --out-dir ${name} \
+        --threads ${task.cpus} \
+        --iterations ${params.iterations} \
+        --plasmids
+
+else
+
+    flye \
+        --${params.read_type} ${reads} \
+        --out-dir ${name} \
+        --threads ${task.cpus} \
+        --iterations ${params.iterations} \
+        --plasmids \
+        --asm-coverage ${params.asm_coverage}
+
+fi
 
 """
 
