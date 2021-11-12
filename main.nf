@@ -86,7 +86,7 @@ Channel.from(
 process flye {
 
   // Docker container to use
-  container "quay.io/biocontainers/flye:2.8--py37h8270d21_0"
+  container "quay.io/biocontainers/flye:2.9--py27h6a42192_0"
   label "mem_medium"
   errorStrategy 'retry'
   maxRetries 3
