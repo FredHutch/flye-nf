@@ -12,12 +12,12 @@ def helpMessage() {
       --output_folder       Folder to place analysis outputs
 
     Optional Arguments (passed directly to flye):
-      --read-type           Type of PacBio or MinION reads passed in to Flye, either raw, corrected, or HiFi (PacBio-only)
+      --read_type           Type of PacBio or MinION reads passed in to Flye, either raw, corrected, or HiFi (PacBio-only)
                             Default: pacbio-raw
                             Options: pacbio-raw, pacbio-corr, pacbio-hifi, nano-raw, nano-corr, subassemblies
       --iterations          Number of polishing iterations
                             Default: 1
-      --asm-coverage        Reduced coverage for initial disjointig assembly
+      --asm_coverage        Reduced coverage for initial disjointig assembly
                             Default: not set
     
     For more details on Flye, see https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md
