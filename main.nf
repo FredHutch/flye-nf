@@ -113,8 +113,7 @@ if [[ "${params.asm_coverage}" == "0" ]]; then
         --${params.read_type} ${reads} \
         --out-dir ${name} \
         --threads ${task.cpus} \
-        --iterations ${params.iterations} \
-        --plasmids
+        --iterations ${params.iterations}
 
 else
 
@@ -123,7 +122,6 @@ else
         --out-dir ${name} \
         --threads ${task.cpus} \
         --iterations ${params.iterations} \
-        --plasmids \
         --asm-coverage ${params.asm_coverage}
 
 fi
