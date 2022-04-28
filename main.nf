@@ -34,18 +34,12 @@ def helpMessage() {
 }
 
 // Show help message if the user specifies the --help flag at runtime
-params.help = false
-if (params.help || params.manifest == null || params.output_folder == null){
+if (params.help || params.manifest == false || params.output_folder == false ){
     // Invoke the function above which prints the help message
     helpMessage()
     // Exit out and do not run anything else
     exit 1
 }
-
-// Default options listed here
-params.read_type = "pacbio-raw"
-params.iterations = 1
-params.asm_coverage = 'none'
 
 // Make sure the manifest file exists
 if ( file(params.manifest).isEmpty() ){
@@ -86,7 +80,7 @@ Channel.from(
 process flye {
 
   // Docker container to use
-  container "quay.io/biocontainers/flye:2.9--py27h6a42192_0"
+  container "${params.container__flye}"
   label "mem_medium"
   errorStrategy 'retry'
   maxRetries 3
@@ -113,7 +107,7 @@ echo ""
 echo "STARTING FLYE"
 echo ""
 
-if [[ "${params.asm_coverage}" == "none" ]]; then
+if [[ "${params.asm_coverage}" == "0" ]]; then
 
     flye \
         --${params.read_type} ${reads} \
