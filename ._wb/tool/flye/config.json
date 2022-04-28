@@ -10,7 +10,8 @@
         "read_type": {
             "help": "Type of PacBio or MinION reads passed in to Flye. Options: pacbio-raw (default), pacbio-corr, pacbio-hifi, nano-raw, nano-corr, subassemblies.",
             "default": "pacbio-raw",
-            "wb_type": "string"
+            "wb_type": "select",
+            "wb_choices": ["pacbio-raw", "pacbio-corr", "pacbio-hifi", "nano-raw", "nano-corr", "subassemblies"]
         },
         "iterations": {
             "help": "Number of polishing iterations",
